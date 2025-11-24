@@ -77,5 +77,14 @@
   box-shadow: 0 6px 12px rgba(0,0,0,0.35);
   color: #ff9901; /* orange text glow on hover */
 }
+.container {
+  background-color: white !important;
+  color: black !important;
+}
+
+.dark-mode .container {
+  background-color: #140e5c !important;
+  color: white !important;
+}
 
 

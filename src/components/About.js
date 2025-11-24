@@ -1,73 +1,51 @@
-import React, {useState} from 'react'
+import React from "react";
 
-export default function About() {
-    const [mystyle, setMyStyle] = useState({
-        color: 'black',
-        backgroundColor: 'white'
-    })
-    const [BtnText, setBtnText] = useState("Enable Dark Mode");
-    const toggleswitch = () =>{
-        if(mystyle.color === 'white'){
-            setMyStyle({
-                color: 'Black',
-                backgroundColor: 'white'
-            })
-            setBtnText("Enable Dark Mode")
-        }
-        else{
-            setMyStyle({
-                color: 'white',
-                backgroundColor: 'black',
-                border: '1px solid white'
-            })
-            setBtnText("Enable Light Mode")
-        }
-    }
-    
+export default function About(props) {
+  // style based on global mode
+  const myStyle = {
+  color: props.mode === "dark" ? "white" : "black",
+  backgroundColor: props.mode === "dark" ? "#140e5c" : "white",
+  borderRadius: "10px",
+  padding: "30px",
+};
+
+
   return (
-    <div className="container" style={mystyle}>
-        <h1>About Us</h1>
-        <div className="accordion" id="accordionExample">
-    <div className="accordion-item">
-        <h2 className="accordion-header">
-        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style={mystyle}>
-            Accordion Item #1
-        </button>
-        </h2>
-        <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample" >
-        <div className="accordion-body" style={mystyle}>
-            <strong>This is the first item’s accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-        </div>
-        </div>
+    <div className="container my-4" style={myStyle}>
+      <h1 className="mb-3">About Scribe</h1>
+
+      <p>
+        <strong>Scribe</strong> is a fast and easy-to-use text utility tool designed
+        to help you transform and clean your text instantly. Whether you're a student,
+        writer, developer, or content creator, Scribe makes text formatting simple
+        and efficient.
+      </p>
+
+      <h3 className="mt-4">✨ What Scribe Can Do</h3>
+      <p>Scribe provides multiple powerful text transformation features such as:</p>
+      <ul>
+        <li>🔠 Convert text to <strong>Uppercase</strong></li>
+        <li>🔡 Convert text to <strong>Lowercase</strong></li>
+        <li>📝 Convert to <strong>Title Case</strong></li>
+        <li>🔤 Convert to <strong>Sentence Case</strong></li>
+        <li>🎭 <strong>Alternate Case</strong> transformation</li>
+        <li>↔️ <strong>Reverse</strong> the entire text</li>
+        <li>🚫 <strong>Remove spaces</strong> (extra or all)</li>
+        <li>📋 <strong>Copy</strong> text with one click</li>
+      </ul>
+
+      <h3 className="mt-4">💡 Why Scribe?</h3>
+      <p>
+        Scribe is created with a focus on simplicity and speed. No distractions,
+        no complex UI — just a clean interface where you paste your text and instantly
+        convert it into the format you need.
+      </p>
+
+      <h3 className="mt-4">🌙 Light & Dark Mode</h3>
+      <p>
+        Scribe supports both <strong>Light</strong> and <strong>Dark</strong> mode,
+        automatically adjusting to your theme for a smooth reading experience.
+      </p>
     </div>
-    <div className="accordion-item">
-        <h2 className="accordion-header">
-        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style={mystyle}>
-            Accordion Item #2
-        </button>
-        </h2>
-        <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-        <div className="accordion-body" style={mystyle}>
-            <strong>This is the second item’s accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-        </div>
-        </div>
-    </div>
-    <div className="accordion-item">
-        <h2 className="accordion-header">
-        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style={mystyle}>
-            Accordion Item #3
-        </button>
-        </h2>
-        <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-        <div className="accordion-body" style={mystyle}>
-            <strong>This is the third item’s accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-        </div>
-        </div>
-    </div>
-    </div>
-    <div className="container">
-    <button onClick={toggleswitch} type="button" className="btn btn-primary my-2">{BtnText}</button>
-    </div>
-    </div>
-  )
+  );
 }
