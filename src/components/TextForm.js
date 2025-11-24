@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 export default function TextForm(props) {
   const [text, setText] = useState('');
-  const [lastSearch, setLastSearch] = useState(''); // store last search to avoid repeated alerts
+  const [lastSearch, setLastSearch] = useState('');
 
   // Highlight and count search term occurrences
   useEffect(() => {
     if (!props.searchValue || props.searchValue.trim() === "" || text.trim() === "") return;
 
-    // Only show alert if searchValue changed
     if (props.searchValue !== lastSearch) {
       const regex = new RegExp(`\\b(${props.searchValue})\\b`, "gi");
       const matches = text.match(regex);
@@ -28,7 +27,7 @@ export default function TextForm(props) {
     const regex = new RegExp(`\\b(${highlight})\\b`, 'gi');
     const parts = inputText.split(regex);
 
-    return parts.map((part, i) => 
+    return parts.map((part, i) =>
       regex.test(part) ? (
         <mark key={i} style={{ backgroundColor: 'yellow', fontWeight: 'bold' }}>
           {part}
@@ -49,7 +48,7 @@ export default function TextForm(props) {
   const handleSentenceCase = () => { setText(text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase())); props.showAlert("Converted to Sentence Case", "success"); };
   const handleCapitalizedCase = () => { setText(text.toLowerCase().replace(/\b\w/g, c => c.toUpperCase())); props.showAlert("Converted to Capitalized Case", "success"); };
   const handleAlternatingCase = () => { setText(text.split('').map((c,i) => i%2===0 ? c.toLowerCase() : c.toUpperCase()).join('')); props.showAlert("Converted to Alternating Case", "success"); };
-  const handleTitleCase = () => { 
+  const handleTitleCase = () => {
     const smallWords = ['a','an','the','and','but','or','for','nor','on','in','at','with','to','of','by'];
     setText(text.toLowerCase().split(/\s+/).map((word, idx, arr) =>
       idx === 0 || idx === arr.length-1 || !smallWords.includes(word)
@@ -61,6 +60,20 @@ export default function TextForm(props) {
   const handleInverseCase = () => { setText(text.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('')); props.showAlert("Converted to Inverse Case", "success"); };
 
   const handleOnChange = (event) => setText(event.target.value);
+
+  // Character-based reading time
+  const charCount = text.length;
+  const totalSeconds = Math.floor((charCount / 1000) * 60);  // 1000 chars = 1 minute
+
+  let hours = Math.floor(totalSeconds / 3600);
+  let minutes = Math.floor((totalSeconds % 3600) / 60);
+  let seconds = totalSeconds % 60;
+
+  let formattedTime = "";
+  if (hours > 0) formattedTime += `${hours} hr `;
+  if (minutes > 0) formattedTime += `${minutes} min `;
+  if (seconds > 0) formattedTime += `${seconds} sec`;
+  if (formattedTime.trim() === "") formattedTime = "0 sec";
 
   return (
     <>
@@ -99,7 +112,7 @@ export default function TextForm(props) {
         <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
           <h2>Your text summary</h2>
           <p>{text.trim().split(/\s+/).filter(word => word.length>0).length} words, {text.length} characters</p>
-          <p>Estimated reading time: {(0.03 * text.trim().split(/\s+/).filter(word => word.length>0).length).toFixed(2)} minutes</p>
+          <p>Estimated reading time: {formattedTime}</p>
 
           <h2>Preview</h2>
           <p style={{ whiteSpace: "pre-wrap" }}>
