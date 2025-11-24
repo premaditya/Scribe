@@ -88,7 +88,7 @@ export default function TextForm(props) {
             rows="8"
             placeholder="Enter your text here..."
             style={{
-              backgroundColor: props.mode === 'light' ? 'white' : '#bdd8ff',
+              backgroundColor: props.mode === 'light' ? 'white' : '#568bd7',
               color: props.mode === 'dark' ? '#fff' : 'black',
               border: '1px solid black'
             }}
